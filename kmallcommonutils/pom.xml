@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.kgc.kmall01</groupId>
-    <artifactId>kmall-common-util</artifactId>
+    <artifactId>kmall-common-utils</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -26,6 +26,25 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+            <type>pom</type>
         </dependency>
     </dependencies>
 </project>
