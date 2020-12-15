@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.kgc.kmall01</groupId>
-            <artifactId>kmall-common-util</artifactId>
+            <artifactId>kmall-common-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
