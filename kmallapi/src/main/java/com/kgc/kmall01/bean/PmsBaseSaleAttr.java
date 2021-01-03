@@ -1,6 +1,8 @@
 package com.kgc.kmall01.bean;
 
-public class PmsBaseSaleAttr {
+import java.io.Serializable;
+
+public class PmsBaseSaleAttr implements Serializable {
     private Long id;
 
     private String name;

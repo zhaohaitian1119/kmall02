@@ -28,6 +28,8 @@
     <dubbo.spring.boot.starter.version>2.7.1</dubbo.spring.boot.starter.version>
     <dubbo.version>2.7.1</dubbo.version>
     <dubbo.dependencies.zookeeper.version>2.7.1</dubbo.dependencies.zookeeper.version>
+    <fastjson.version>1.2.46</fastjson.version>
+    <jedis.version>2.9.0</jedis.version>
   </properties>
 
   <dependencyManagement>
@@ -46,6 +48,16 @@
         <groupId>org.apache.dubbo</groupId>
         <artifactId>dubbo</artifactId>
         <version>${dubbo.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${jedis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.dubbo</groupId>
