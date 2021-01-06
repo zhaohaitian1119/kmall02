@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kgc.kmall01</groupId>
-	<artifactId>kmall-manager-web</artifactId>
+	<artifactId>kmall-search-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>kmall-manager-web</name>
+	<name>kmall-search-web</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -28,16 +28,6 @@
 			<groupId>com.kgc.kmall01</groupId>
 			<artifactId>kmall-web-util</artifactId>
 			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.csource</groupId>
-			<artifactId>fastdfs-client-java</artifactId>
-			<version>1.29-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
 		</dependency>
 	</dependencies>
 
