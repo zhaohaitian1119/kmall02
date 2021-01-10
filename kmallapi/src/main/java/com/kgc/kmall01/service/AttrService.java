@@ -4,6 +4,7 @@ import com.kgc.kmall01.bean.PmsBaseAttrInfo;
 import com.kgc.kmall01.bean.PmsBaseAttrValue;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author shkstart
@@ -15,5 +16,7 @@ public interface AttrService {
     //根据attrID查询属性值
     List<PmsBaseAttrValue> selByAttrId(Long attrId);
 
-    public int updateAttrValue(PmsBaseAttrInfo  pmsBaseAttrInfo);
+   public int updateAttrValue(PmsBaseAttrInfo  pmsBaseAttrInfo);
+
+    List<PmsBaseAttrInfo> selectByValueId(Set<Long> valueId);
 }

@@ -1,9 +1,11 @@
 package com.kgc.kmall01.service;
 
+import com.kgc.kmall01.bean.PmsBaseAttrInfo;
 import com.kgc.kmall01.bean.PmsSearchSkuInfo;
 import com.kgc.kmall01.bean.PmsSearchSkuParam;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author shkstart
@@ -11,4 +13,6 @@ import java.util.List;
  */
 public interface SearchService {
     List<PmsSearchSkuInfo> list(PmsSearchSkuParam pmsSearchSkuParam);
+
+
 }
