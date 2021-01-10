@@ -4,11 +4,13 @@ import com.kgc.kmall01.bean.*;
 import com.kgc.kmall01.manager.mapper.PmsBaseAttrInfoMapper;
 import com.kgc.kmall01.manager.mapper.PmsBaseAttrValueMapper;
 import com.kgc.kmall01.service.AttrService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author shkstart
@@ -71,5 +73,14 @@ public class AttrServiceImpl implements AttrService {
             return -1;
         }
 
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> selectByValueId(Set<Long> valueId) {
+        String join = StringUtils.join(valueId);
+        join = join.substring(1, join.length() - 1);
+        System.out.println(join);
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.selectAttrInfoValueListByValueId(join);
+        return pmsBaseAttrInfos;
     }
 }

@@ -2,11 +2,12 @@ package com.kgc.kmall02.search.service;
 
 import com.kgc.kmall01.bean.PmsSearchSkuInfo;
 import com.kgc.kmall01.bean.PmsSearchSkuParam;
-import com.kgc.kmall01.bean.PmsSkuAttrValue;
+import com.kgc.kmall01.service.AttrService;
 import com.kgc.kmall01.service.SearchService;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
@@ -30,6 +31,9 @@ import java.util.Map;
 @Service
 public class SearchServiceImpl implements SearchService {
 
+    @Reference
+    AttrService attrService;
+
     @Resource
     JestClient jestClient;
 
@@ -38,7 +42,7 @@ public class SearchServiceImpl implements SearchService {
         List<PmsSearchSkuInfo> pmsSearchSkuInfos = new ArrayList<>();
         String catalog3Id = pmsSearchSkuParam.getCatalog3Id();
         String keyword = pmsSearchSkuParam.getKeyword();
-        List<PmsSkuAttrValue> skuAttrValueList = pmsSearchSkuParam.getSkuAttrValueList();
+        String[] skuAttrValueList = pmsSearchSkuParam.getValueId();
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
@@ -49,8 +53,8 @@ public class SearchServiceImpl implements SearchService {
         }
 
         if (skuAttrValueList != null) {
-            for (PmsSkuAttrValue pmsSkuAttrValue : skuAttrValueList) {
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", pmsSkuAttrValue.getValueId());
+            for (String pmsSkuAttrValue : skuAttrValueList) {
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", pmsSkuAttrValue);
                 boolQueryBuilder.filter(termQueryBuilder);
             }
         }
@@ -92,4 +96,6 @@ public class SearchServiceImpl implements SearchService {
         }
         return pmsSearchSkuInfos;
     }
+
+
 }
