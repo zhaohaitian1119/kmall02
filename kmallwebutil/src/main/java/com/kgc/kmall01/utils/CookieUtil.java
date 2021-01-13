@@ -1,4 +1,4 @@
-package com.kgc.kmall01;
+package com.kgc.kmall01.utils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

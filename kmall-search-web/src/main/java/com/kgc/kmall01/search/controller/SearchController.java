@@ -1,5 +1,6 @@
 package com.kgc.kmall01.search.controller;
 
+import com.kgc.kmall01.annotations.LoginRequired;
 import com.kgc.kmall01.bean.*;
 import com.kgc.kmall01.service.AttrService;
 import com.kgc.kmall01.service.SearchService;
@@ -24,6 +25,7 @@ public class SearchController {
     @Reference
     AttrService attrService;
 
+    @LoginRequired(false)
     @RequestMapping("/")
     public String index() {
         return "index";

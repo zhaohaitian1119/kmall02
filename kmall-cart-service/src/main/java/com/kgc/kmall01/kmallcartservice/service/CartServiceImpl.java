@@ -99,4 +99,15 @@ public class CartServiceImpl implements CartService {
 
         return omsCartItems;
     }
+
+    @Override
+    public void checkCart(OmsCartItem omsCartItem) {
+        OmsCartItemExample example = new OmsCartItemExample();
+        OmsCartItemExample.Criteria criteria = example.createCriteria();
+        criteria.andMemberIdEqualTo(omsCartItem.getMemberId());
+        criteria.andProductSkuIdEqualTo(omsCartItem.getProductSkuId());
+        omsCartItemMapper.updateByExampleSelective(omsCartItem,example);
+
+        flushCartCache(omsCartItem.getMemberId().toString());
+    }
 }

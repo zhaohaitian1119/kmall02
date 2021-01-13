@@ -47,6 +47,27 @@ public class OmsCartItem implements Serializable {
 
     private String productAttr;
 
+    //小计
+    private BigDecimal totalPrice;
+    //购物车中是否被选中
+    private Integer isChecked;
+
+    public Integer getIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(Integer isChecked) {
+        this.isChecked = isChecked;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public Long getId() {
         return id;
     }

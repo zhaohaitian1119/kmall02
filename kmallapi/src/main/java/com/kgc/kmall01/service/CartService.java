@@ -18,4 +18,6 @@ public interface CartService {
     void addCart(OmsCartItem omsCartItem);
 
     List<OmsCartItem> cartList(String memberId);
+
+    void checkCart(OmsCartItem omsCartItem);
 }

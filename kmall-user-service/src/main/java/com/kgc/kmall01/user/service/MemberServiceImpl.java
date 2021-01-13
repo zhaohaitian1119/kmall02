@@ -20,8 +20,19 @@ public class MemberServiceImpl implements MemberService {
     @Resource
     MemberMapper memberMapper;
 
+
     @Override
-    public List<Member> selAll() {
+    public List<Member> selectAllMember() {
         return memberMapper.selectByExample(null);
+    }
+
+    @Override
+    public void addUserToken(String token, Long id) {
+
+    }
+
+    @Override
+    public Member login(Member member) {
+        return null;
     }
 }

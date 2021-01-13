@@ -1,23 +1,23 @@
 package com.kgc.kmall01.kmallcartweb.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.kgc.kmall01.CookieUtil;
+import com.kgc.kmall01.annotations.LoginRequired;
 import com.kgc.kmall01.bean.OmsCartItem;
 import com.kgc.kmall01.bean.PmsSkuInfo;
 import com.kgc.kmall01.service.CartService;
 import com.kgc.kmall01.service.SkuService;
+import com.kgc.kmall01.utils.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author shkstart
@@ -31,7 +31,7 @@ public class CartController {
     @Reference
     CartService cartService;
 
-
+    @LoginRequired(value = false)
     @RequestMapping("/addToCart")
     public String addToCart(Long skuId, int num, HttpServletRequest request, HttpServletResponse response){
         List<OmsCartItem> omsCartItemList = new ArrayList<>();
@@ -103,6 +103,7 @@ public class CartController {
         return "redirect:/success.html";
     }
 
+    @LoginRequired(false)
     @RequestMapping("/cartList")
     public String cartList(ModelMap modelMap, HttpServletRequest request){
         List<OmsCartItem> omsCartItems = new ArrayList<>();
@@ -137,5 +138,66 @@ public class CartController {
         }
 
         return b;
+    }
+    @LoginRequired(false)
+    @RequestMapping("/checkCart")
+    @ResponseBody
+    public Map<String, Object> checkCart(Integer isChecked, Long skuId, HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> map = new HashMap<>();
+        String memberId = "1";
+        System.out.println(isChecked);
+        if (StringUtils.isNotBlank(memberId)) {
+            //用户以登录
+            OmsCartItem omsCartItem = new OmsCartItem();
+            omsCartItem.setProductSkuId(skuId);
+            omsCartItem.setMemberId(new Long(memberId));
+            omsCartItem.setIsChecked(isChecked);
+            cartService.checkCart(omsCartItem);
+            //计算总价
+            List<OmsCartItem> omsCartItems = cartService.cartList(memberId);
+            BigDecimal totalAmount = getTotalAmount(omsCartItems);
+            map.put("totalAmount", totalAmount);
+            System.out.println(totalAmount);
+        } else {
+            //没有登录 查询cookie
+            String cartListCookie = CookieUtil.getCookieValue(request, "cartListCookie", true);
+            List<OmsCartItem> omsCartItemList = JSON.parseArray(cartListCookie, OmsCartItem.class);
+            for (OmsCartItem omsCartItem : omsCartItemList) {
+                if (omsCartItem.getProductSkuId() == skuId) {
+                    omsCartItem.setIsChecked(isChecked);
+                    break;
+                }
+            }
+
+            CookieUtil.setCookie(request, response, "cartListCookie", JSON.toJSONString(omsCartItemList), 60 * 60 * 72, true);
+            //计算总价
+            List<OmsCartItem> omsCartItems = cartService.cartList(memberId);
+            BigDecimal totalAmount = getTotalAmount(omsCartItems);
+            map.put("totalAmount", totalAmount);
+        }
+
+        return map;
+    }
+
+    private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems) {
+        if (omsCartItems == null || omsCartItems.size() == 0) {
+            return new BigDecimal(0);
+        }
+        BigDecimal total = new BigDecimal(0);
+        for (OmsCartItem omsCartItem : omsCartItems) {
+            BigDecimal multiply = omsCartItem.getPrice().multiply(new BigDecimal(omsCartItem.getQuantity()));
+            omsCartItem.setTotalPrice(multiply);
+            if (omsCartItem.getIsChecked() != null && omsCartItem.getIsChecked() == 1) {
+                total = total.add(omsCartItem.getTotalPrice());
+            }
+
+        }
+        return total;
+    }
+    @LoginRequired(true)
+    @RequestMapping("toTrade")
+    public String toTrade() {
+
+        return "toTrade";
     }
 }
