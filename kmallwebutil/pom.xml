@@ -16,6 +16,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.kgc.kmall01</groupId>
             <artifactId>kmall-common-utils</artifactId>
             <version>1.0-SNAPSHOT</version>

@@ -51,13 +51,14 @@
 
 						</li>
 						<li class="bri">
+							<a href="https://api.weibo.com/oauth2/authorize?client_id=4265947699&response_type=code&redirect_uri=http://passport.kmall.com:8086/vlogin">新浪微博登录</a>
 							<a href="">忘记密码</a>
 						</li>
 						<li class="ent"><button id="btn2" type="button" class="btn2"><a href="javascript:submitLogin();" class="a">登 &nbsp; &nbsp;录</a></button></li>
 
 					</ul>
 						<input type="hidden" id="originUrl" name="originUrl" th:value="${originUrl}"/>
-						<input type="text" th:value="${ReturnUrl}" id="ReturnUrl" />
+						<input type="hidden" th:value="${ReturnUrl}" id="ReturnUrl" />
 					</form>
 				</div>
 			<div class="si_out">
@@ -94,6 +95,9 @@
 					if(token=="fail"){
 					    alert("用户名或密码错误")
 					}else {
+					    if(ReturnUrl==''){
+                            ReturnUrl = "search.kmall.com:8084"
+						}
 					    location.href=ReturnUrl+"?token="+token;
 
 					}
